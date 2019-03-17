@@ -1,0 +1,39 @@
+<div class="form-container">
+  <mat-card class="search-form">
+    <mat-card-content>
+      <p>
+        <mat-form-field>
+          <input type="text" matInput placeholder="URL" class="form-control" name="groupName" #imgUrl>
+        </mat-form-field>
+      </p>
+      <div class="button">
+        <button type="button" (click)="detect(imgUrl.value)" mat-stroked-button>Detect</button>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<hr />
+
+<mat-card class="mainImageContainer" *ngIf="imgUrl.value">
+    <mat-card-content>
+        <img #mainImg class="card-img main-img" [src]="imgUrl.value" (load)="imageLoaded($event)" />
+        <div [ngClass]="{'face-box-red': item.faceAttributes.gender === 'female', 'face-box-blue': item.faceAttributes.gender === 'male'}"
+      *ngFor="let item of detectedFaces" 
+      (click)="faceClicked(item)"
+      [style.top.px]="item.faceRectangle.top * multiplier" 
+      [style.left.px]="item.faceRectangle.left * multiplier"
+      [style.height.px]="item.faceRectangle.height * multiplier"
+      [style.width.px]="item.faceRectangle.width * multiplier">
+    </div>
+      <!-- <p>
+       Blabla 
+      </p> -->
+    </mat-card-content>
+
+  </mat-card>
+
+<mat-card *ngIf="selectedFace" class="text-primary">
+  <pre class="text-primary">{{selectedFace | json}}</pre>
+</mat-card>
