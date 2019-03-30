@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FaceApiService } from 'src/app/services/face-api.service';
+import { EmotivePoint } from "../../shared/models/emotivePoint";
+import { Face } from "../../shared/models/faces";
+import { Rect } from "../../shared/models/rect";
+
 
 
 @Component({
@@ -9,13 +13,13 @@ import { FaceApiService } from 'src/app/services/face-api.service';
 })
 export class CardComponent implements OnInit {
   loading = false;
-  public detectedFaces: any;
-  public identifiedPersons = [];
-  public imageUrl: string;
-  public multiplier: number;
-  public personGroups = [];
-  public selectedFace: any;
-  public selectedGroupId = '';
+  detectedFaces: any;
+  identifiedPersons = [];
+  imageUrl: string;
+  multiplier: number;
+  personGroups = [];
+  selectedFace: any;
+  selectedGroupId = '';
   @ViewChild('mainImg') mainImg;
 
   constructor(private faceApi: FaceApiService) { }
@@ -27,7 +31,18 @@ export class CardComponent implements OnInit {
   detect(imgUrl) {
     this.loading = true;
     this.faceApi.detect(imgUrl).subscribe(data => {
-      this.detectedFaces = data;
+
+      let faces = [];
+      for (let f of data) {
+        let scores = new EmotivePoint(f.faceAttributes.emotion);
+        console.log('scores', scores);
+        let faceRectangle = new Rect(f.faceRectangle);
+        console.log('faceRectangle', faceRectangle);
+        let face = new Face(scores, faceRectangle, f.faceAttributes.gender);
+        faces.push(face);
+      }
+      this.detectedFaces = faces;
+      console.log("FACES", faces);
       console.log('**detect results', this.detectedFaces);
       this.loading = false;
     });

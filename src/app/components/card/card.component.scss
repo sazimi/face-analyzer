@@ -9,16 +9,9 @@
     object-fit: contain;
 }
 
-.face-box-red {
-    position: absolute;
-    border: 3px solid red;
-    background-color: transparent;
-    cursor: pointer;
-}
 
-.face-box-blue {
+.face-box {
     position: absolute;
-    border: 3px solid blue;
     background-color: transparent;
     cursor: pointer;
 }

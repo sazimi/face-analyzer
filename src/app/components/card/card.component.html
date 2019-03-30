@@ -17,22 +17,23 @@
 <hr />
 
 <mat-card class="mainImageContainer" *ngIf="imgUrl.value">
-    <mat-card-content>
-        <img #mainImg class="card-img main-img" [src]="imgUrl.value" (load)="imageLoaded($event)" />
-        <div [ngClass]="{'face-box-red': item.faceAttributes.gender === 'female', 'face-box-blue': item.faceAttributes.gender === 'male'}"
-      *ngFor="let item of detectedFaces" 
-      (click)="faceClicked(item)"
-      [style.top.px]="item.faceRectangle.top * multiplier" 
-      [style.left.px]="item.faceRectangle.left * multiplier"
+  <mat-card-content>
+    <img #mainImg class="card-img main-img" [src]="imgUrl.value" (load)="imageLoaded($event)" />
+    <div *ngFor="let item of detectedFaces" (click)="faceClicked(item)"
+      [style.top.px]="(item.faceRectangle.top * multiplier) -20"
+      [style.left.px]="(item.faceRectangle.left * multiplier) -20"
       [style.height.px]="item.faceRectangle.height * multiplier"
-      [style.width.px]="item.faceRectangle.width * multiplier">
+      [style.width.px]="item.faceRectangle.width * multiplier"
+      [style.font-size.pt]="(item.faceRectangle.width * multiplier) > 120? (item.faceRectangle.width * multiplier)  - 50 : item.faceRectangle.width * multiplier"
+      class="face-box">
+      {{item.mojiIcon}}
     </div>
-      <!-- <p>
+    <!-- <p>
        Blabla 
       </p> -->
-    </mat-card-content>
+  </mat-card-content>
 
-  </mat-card>
+</mat-card>
 
 <mat-card *ngIf="selectedFace" class="text-primary">
   <pre class="text-primary">{{selectedFace | json}}</pre>
