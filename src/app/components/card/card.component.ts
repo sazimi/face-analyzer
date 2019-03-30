@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FaceApiService } from 'src/app/services/face-api.service';
+import { FaceApiService } from 'src/app/shared/services/face-api.service';
 import { EmotivePoint } from "../../shared/models/emotivePoint";
 import { Face } from "../../shared/models/faces";
 import { Rect } from "../../shared/models/rect";

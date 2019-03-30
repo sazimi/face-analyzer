@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CardComponent } from './components/card/card.component';
-import { FaceApiService } from './services/face-api.service';
+import { FaceApiService } from './shared/services/face-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatInputModule, MatSelectModule, MatCardModule, MatToolbarModule } from '@angular/material';
